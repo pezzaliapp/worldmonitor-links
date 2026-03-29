@@ -3,22 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#0f172a">
 <link rel="manifest" href="manifest.json">
-<title>WorldMonitor Links</title>
-</head>
-<body style="background:#111;color:#fff;font-family:sans-serif;text-align:center;padding:20px;">
-<h1>WorldMonitor Links</h1>
-<p>Interpretazione semplice per chi vende</p>
+<title>WorldMonitor Decision Hub</title>
 
-<a href="https://www.worldmonitor.app/?view=global&layers=economic,hotspots" target="_blank">Radar Vendite</a><br><br>
-<a href="https://www.worldmonitor.app/?view=global&layers=waterways,outages" target="_blank">Supply Chain</a><br><br>
-<a href="https://www.worldmonitor.app/?view=global&layers=conflicts,bases" target="_blank">Global Risk</a>
+<style>
+body {
+  margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg,#0f172a,#020617);
+  color:white;
+}
+
+.container{
+  max-width:500px;
+  margin:auto;
+  padding:20px;
+}
+
+h1{
+  font-size:26px;
+  margin-bottom:5px;
+}
+
+.sub{
+  opacity:0.7;
+  margin-bottom:25px;
+}
+
+.card{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card h2{
+  margin:0 0 8px 0;
+}
+
+.tag{
+  font-size:12px;
+  opacity:0.7;
+  margin-bottom:10px;
+}
+
+.btn{
+  display:block;
+  text-align:center;
+  background:#00b894;
+  padding:14px;
+  border-radius:12px;
+  text-decoration:none;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.footer{
+  text-align:center;
+  font-size:11px;
+  opacity:0.5;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>🌍 Decision Hub</h1>
+<div class="sub">Leggi il mondo. Decidi meglio.</div>
+
+<div class="card">
+<h2>Radar Vendite</h2>
+<div class="tag">Impatto: Medio · 7–30 giorni</div>
+<div>Eventi economici e segnali di domanda.</div>
+<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=economic,hotspots" target="_blank">Apri</a>
+</div>
+
+<div class="card">
+<h2>Supply Chain</h2>
+<div class="tag">Impatto: Alto · 3–14 giorni</div>
+<div>Rotte, energia e blocchi logistici.</div>
+<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=waterways,outages" target="_blank">Apri</a>
+</div>
+
+<div class="card">
+<h2>Global Risk</h2>
+<div class="tag">Impatto: Variabile · Immediato</div>
+<div>Conflitti e tensioni geopolitiche.</div>
+<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=conflicts,bases" target="_blank">Apri</a>
+</div>
+
+<div class="footer">
+Link esterni a WorldMonitor · Nessuna affiliazione
+</div>
+
+</div>
 
 <script>
 if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('sw.js');
 }
 </script>
+
 </body>
 </html>
