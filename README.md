@@ -1,13 +1,13 @@
-# WorldMonitor Links — PezzaliAPP
+# Decision Hub
 
-Lightweight PWA that organizes and explains external WorldMonitor views.
+Lightweight PWA that organizes and explains external WorldMonitor views in a simple, mobile-first interface.
 
-## Purpose
-Educational and decision-support oriented.
+## What it does
+- Presents 3 preconfigured external views
+- Explains what each view is for
+- Works well on mobile
+- Can be installed as a PWA
 
-## Disclaimer
-This project is NOT affiliated with WorldMonitor.
-All links point to the official public web app.
-
-## Usage
-Open the app and select a scenario.
+## Important note
+This project is not affiliated with WorldMonitor.
+It only links to publicly available external views.

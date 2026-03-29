@@ -1,114 +1,431 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0f172a">
-<link rel="manifest" href="manifest.json">
-<title>WorldMonitor Decision Hub</title>
-
-<style>
-body {
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(180deg,#0f172a,#020617);
-  color:white;
-}
-
-.container{
-  max-width:500px;
-  margin:auto;
-  padding:20px;
-}
-
-h1{
-  font-size:26px;
-  margin-bottom:5px;
-}
-
-.sub{
-  opacity:0.7;
-  margin-bottom:25px;
-}
-
-.card{
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.card h2{
-  margin:0 0 8px 0;
-}
-
-.tag{
-  font-size:12px;
-  opacity:0.7;
-  margin-bottom:10px;
-}
-
-.btn{
-  display:block;
-  text-align:center;
-  background:#00b894;
-  padding:14px;
-  border-radius:12px;
-  text-decoration:none;
-  color:white;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-.footer{
-  text-align:center;
-  font-size:11px;
-  opacity:0.5;
-  margin-top:20px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#081019" />
+  <meta name="description" content="Decision Hub: collegamenti esterni a WorldMonitor organizzati in chiave vendite, supply chain e rischio globale." />
+  <title>Decision Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <style>
+    :root{
+      --bg:#081019;
+      --bg2:#0d1622;
+      --card:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.10);
+      --text:#f5f7fb;
+      --muted:#a6b0c0;
+      --accent:#00b894;
+      --accent2:#37d0ff;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0,184,148,.16), transparent 34%),
+        radial-gradient(circle at top right, rgba(55,208,255,.10), transparent 26%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      min-height:100vh;
+    }
+    .shell{
+      width:min(100%, 540px);
+      margin:0 auto;
+      padding:18px 16px 30px;
+    }
+    .hero{
+      position:relative;
+      padding:22px 18px 18px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(12px);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:auto -60px -60px auto;
+      width:180px;
+      height:180px;
+      background:radial-gradient(circle, rgba(0,184,148,.28), transparent 62%);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:#d9e7ef;
+      font-size:12px;
+      letter-spacing:.2px;
+      background:rgba(255,255,255,.04);
+    }
+    .eyebrow-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 14px rgba(0,184,148,.65);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:clamp(30px, 8vw, 40px);
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.55;
+      max-width:36ch;
+    }
+    .quick-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:18px;
+    }
+    .stat{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      text-align:left;
+    }
+    .stat strong{
+      display:block;
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    .stat span{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .section-title{
+      margin:22px 4px 12px;
+      color:#dce4f0;
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .card{
+      position:relative;
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+      margin-bottom:14px;
+      overflow:hidden;
+      transition:transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      right:-20px;
+      top:-20px;
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(55,208,255,.18), transparent 65%);
+      pointer-events:none;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);
+    }
+    .card-top{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .icon{
+      flex:0 0 52px;
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .card h2{
+      margin:0 0 4px;
+      font-size:21px;
+      letter-spacing:-.02em;
+    }
+    .tagline{
+      color:#d6e1ee;
+      font-size:13px;
+      opacity:.88;
+    }
+    .copy{
+      margin:14px 0 16px;
+      color:var(--muted);
+      line-height:1.58;
+      font-size:14px;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font-size:12px;
+      color:#dce7f1;
+      background:rgba(255,255,255,.04);
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 10px rgba(0,184,148,.5);
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      text-decoration:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:48px;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:700;
+      letter-spacing:.01em;
+      transition:transform .16s ease, opacity .16s ease, background .16s ease;
+      font-size:15px;
+    }
+    .btn:active{ transform:scale(.98); }
+    .btn-primary{
+      flex:1 1 220px;
+      color:#04120f;
+      background:linear-gradient(180deg, #23d6af, #00b894);
+      box-shadow:0 10px 24px rgba(0,184,148,.28);
+    }
+    .btn-primary:hover{ opacity:.96; }
+    .btn-ghost{
+      flex:0 0 auto;
+      color:#eaf3ff;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+    }
+    .insight-box{
+      margin-top:8px;
+      padding:16px 16px 4px;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+    }
+    .insight-box h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+    .insight-box p{
+      margin:0 0 12px;
+      color:var(--muted);
+      line-height:1.58;
+      font-size:14px;
+    }
+    .insight-list{
+      display:grid;
+      gap:10px;
+      padding:0;
+      list-style:none;
+      margin:0 0 12px;
+    }
+    .insight-list li{
+      padding:12px 12px 12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:#dbe5ef;
+      line-height:1.45;
+      font-size:13px;
+    }
+    .footer-note{
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.55;
+      text-align:left;
+    }
+    .install-tip{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+    @media (max-width: 420px){
+      .quick-stats{ grid-template-columns:1fr; }
+      .actions{ flex-direction:column; }
+      .btn-primary, .btn-ghost{ width:100%; flex:1 1 auto; }
+    }
+  </style>
 </head>
-
 <body>
-<div class="container">
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> PWA mobile-first</div>
+      <h1>Decision Hub</h1>
+      <p class="sub">
+        Una lettura semplice di scenari globali per chi vende: tre viste rapide per capire dove guardare e perché.
+      </p>
+      <div class="quick-stats">
+        <div class="stat">
+          <strong>Vendite</strong>
+          <span>Segnali economici e aree dinamiche.</span>
+        </div>
+        <div class="stat">
+          <strong>Supply Chain</strong>
+          <span>Rotte, energia e criticità operative.</span>
+        </div>
+        <div class="stat">
+          <strong>Rischio</strong>
+          <span>Tensioni geopolitiche e impatti rapidi.</span>
+        </div>
+      </div>
+    </section>
 
-<h1>🌍 Decision Hub</h1>
-<div class="sub">Leggi il mondo. Decidi meglio.</div>
+    <div class="section-title">Viste rapide</div>
 
-<div class="card">
-<h2>Radar Vendite</h2>
-<div class="tag">Impatto: Medio · 7–30 giorni</div>
-<div>Eventi economici e segnali di domanda.</div>
-<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=economic,hotspots" target="_blank">Apri</a>
-</div>
+    <article class="card">
+      <div class="card-top">
+        <div class="icon">🌍</div>
+        <div>
+          <h2>Radar Vendite</h2>
+          <div class="tagline">Per leggere il contesto prima di decidere</div>
+        </div>
+      </div>
+      <p class="copy">
+        Evidenzia segnali economici e aree attive. Utile quando vuoi capire dove il mercato sembra muoversi o rallentare.
+      </p>
+      <div class="meta">
+        <span class="pill"><span class="dot"></span> Impatto medio</span>
+        <span class="pill">Finestra 7–30 giorni</span>
+        <span class="pill">Layer economic + hotspots</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.worldmonitor.app/?lat=40&lon=15&zoom=4&view=global&timeRange=7d&layers=economic,hotspots" target="_blank" rel="noopener">Apri vista</a>
+        <button class="btn btn-ghost" data-copy="https://www.worldmonitor.app/?lat=40&lon=15&zoom=4&view=global&timeRange=7d&layers=economic,hotspots">Copia link</button>
+      </div>
+    </article>
 
-<div class="card">
-<h2>Supply Chain</h2>
-<div class="tag">Impatto: Alto · 3–14 giorni</div>
-<div>Rotte, energia e blocchi logistici.</div>
-<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=waterways,outages" target="_blank">Apri</a>
-</div>
+    <article class="card">
+      <div class="card-top">
+        <div class="icon">🚚</div>
+        <div>
+          <h2>Supply Chain</h2>
+          <div class="tagline">Per osservare ritardi, porti ed energia</div>
+        </div>
+      </div>
+      <p class="copy">
+        Una vista orientata a rotte, interruzioni e infrastrutture sensibili. Serve quando vuoi leggere possibili effetti su tempi e costi.
+      </p>
+      <div class="meta">
+        <span class="pill"><span class="dot"></span> Impatto alto</span>
+        <span class="pill">Finestra 3–14 giorni</span>
+        <span class="pill">Layer waterways + outages + sanctions</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.worldmonitor.app/?lat=30&lon=20&zoom=3&view=global&timeRange=7d&layers=waterways,outages,sanctions" target="_blank" rel="noopener">Apri vista</a>
+        <button class="btn btn-ghost" data-copy="https://www.worldmonitor.app/?lat=30&lon=20&zoom=3&view=global&timeRange=7d&layers=waterways,outages,sanctions">Copia link</button>
+      </div>
+    </article>
 
-<div class="card">
-<h2>Global Risk</h2>
-<div class="tag">Impatto: Variabile · Immediato</div>
-<div>Conflitti e tensioni geopolitiche.</div>
-<a class="btn" href="https://www.worldmonitor.app/?view=global&layers=conflicts,bases" target="_blank">Apri</a>
-</div>
+    <article class="card">
+      <div class="card-top">
+        <div class="icon">⚠️</div>
+        <div>
+          <h2>Global Risk</h2>
+          <div class="tagline">Per leggere tensioni e instabilità</div>
+        </div>
+      </div>
+      <p class="copy">
+        Un colpo d’occhio su conflitti, basi e aree sensibili. Utile se vuoi monitorare segnali che possono avere un impatto rapido.
+      </p>
+      <div class="meta">
+        <span class="pill"><span class="dot"></span> Impatto variabile</span>
+        <span class="pill">Finestra immediata</span>
+        <span class="pill">Layer conflicts + bases</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.worldmonitor.app/?lat=20&lon=0&zoom=1&view=global&timeRange=7d&layers=conflicts,bases" target="_blank" rel="noopener">Apri vista</a>
+        <button class="btn btn-ghost" data-copy="https://www.worldmonitor.app/?lat=20&lon=0&zoom=1&view=global&timeRange=7d&layers=conflicts,bases">Copia link</button>
+      </div>
+    </article>
 
-<div class="footer">
-Link esterni a WorldMonitor · Nessuna affiliazione
-</div>
+    <section class="insight-box">
+      <h3>Come leggerlo</h3>
+      <p>
+        Questa app non sostituisce analisi professionali. Ti aiuta a filtrare il rumore e a trasformare una mappa complessa in tre domande pratiche.
+      </p>
+      <ul class="insight-list">
+        <li><strong>Se vedi tensione:</strong> chiediti se può impattare consegne, costi o tempi.</li>
+        <li><strong>Se vedi movimento economico:</strong> chiediti dove potrebbero aprirsi opportunità commerciali.</li>
+        <li><strong>Se vedi criticità logistiche:</strong> chiediti cosa può cambiare entro pochi giorni.</li>
+      </ul>
+    </section>
 
-</div>
+    <div class="footer-note">
+      Collegamenti esterni a WorldMonitor. Questa app organizza e descrive viste pubbliche preconfigurate. Nessuna affiliazione ufficiale.
+    </div>
 
-<script>
-if ('serviceWorker' in navigator) {
- navigator.serviceWorker.register('sw.js');
-}
-</script>
+    <div class="install-tip">
+      Su iPhone: Condividi → Aggiungi a Home. Su Android o desktop: usa Installa app dal browser.
+    </div>
+  </main>
 
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+    document.querySelectorAll('[data-copy]').forEach(function(btn){
+      btn.addEventListener('click', async function(){
+        const url = btn.getAttribute('data-copy');
+        try{
+          await navigator.clipboard.writeText(url);
+          const original = btn.textContent;
+          btn.textContent = 'Copiato';
+          setTimeout(function(){ btn.textContent = original; }, 1400);
+        }catch(e){
+          window.prompt('Copia questo link:', url);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
