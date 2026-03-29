@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
+  <title>WorldMonitor Links — PezzaliAPP</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 480px;
+      width: 100%;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #1c1c1e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 15px;
+    }
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+    .card p {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      background: #00b894;
+      color: white;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    footer {
+      font-size: 11px;
+      opacity: 0.6;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>WorldMonitor Links</h1>
+    <p>Interpretazione semplice di scenari globali per chi vende.</p>
+
+    <div class="card">
+      <h2>🌍 Radar Vendite</h2>
+      <p>Eventi globali con impatto su economia e domanda.</p>
+      <a class="btn" href="https://www.worldmonitor.app/?lat=40&lon=15&zoom=4&view=global&timeRange=7d&layers=economic,hotspots" target="_blank">Apri</a>
+    </div>
+
+    <div class="card">
+      <h2>🚚 Supply Chain</h2>
+      <p>Rotte, energia e criticità logistiche.</p>
+      <a class="btn" href="https://www.worldmonitor.app/?view=global&layers=waterways,outages" target="_blank">Apri</a>
+    </div>
+
+    <div class="card">
+      <h2>⚡ Global Risk</h2>
+      <p>Conflitti e tensioni geopolitiche.</p>
+      <a class="btn" href="https://www.worldmonitor.app/?view=global&layers=conflicts,bases" target="_blank">Apri</a>
+    </div>
+
+    <footer>
+      Collegamenti esterni a WorldMonitor. Nessuna affiliazione ufficiale.
+    </footer>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
